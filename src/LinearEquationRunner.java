@@ -3,7 +3,6 @@ import java.util.Scanner;
 public class LinearEquationRunner {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        String slope;
 
         System.out.print("Enter a coordinate point: ");
         String point1 = scan.nextLine();
@@ -23,10 +22,19 @@ public class LinearEquationRunner {
         String sY2 = point2.substring(comma2 + 2, point2.length() - 1);
         int y2 = Integer.parseInt(sY2);
 
-        LinearEquation lin = new LinearEquation(x1, y1, x2, y2);
-        System.out.println(lin.slope());
-        System.out.println(lin.distance());
-        System.out.println(lin.yIntercept());
-        System.out.println(lin.coordinateForX(4));
+        if (x1==x2){
+            System.out.println("\nThe points are on a vertical line: x=" + x1);
+        }else {
+            LinearEquation lin = new LinearEquation(x1, y1, x2, y2);
+            System.out.println("\nThe two points are: " + point1 + " and " + point2);
+            System.out.println("The equation of this line is: " + lin.equation());
+            System.out.println("The slope is: " + lin.slope());
+            System.out.println("The y-intercept of the line is: " + lin.yIntercept());
+            System.out.println("The distance between the two points is: " + lin.distance());
+
+            System.out.print("\nEnter a value for x: ");
+            double userNum = scan.nextDouble();
+            System.out.println("\nThe point on the line is: " + lin.coordinateForX(userNum));
+        }
     }
 }
