@@ -50,11 +50,47 @@ public class LinearEquation {
         HINT: Absolute value might be helpful for printing negative y-intercepts as
                subtraction!
      */
-    public String equation() {
-        return "";
+    public String equation(){
+        int top = y2 - y1;
+        int bottom = x2 - x1;
+        String yIntercept = String.valueOf(yIntercept());
+        String slope = top + "/" + bottom + "x ";
+
+        //whole number slope
+        if(((double)top/bottom)%1 ==0){
+            slope = top/bottom + "x ";
+            if(top/bottom == 1){
+                slope = "x "; //slope = 1
+            }else if (top/bottom == -1){
+                slope = "-x "; //slope = -1
+            }else if (top/bottom == 0){
+                slope = ""; //slope = 0
+            }
+        }
+
+        //if slope is not a whole number
+        else if (bottom < 0){
+            bottom = Math.abs(bottom);
+            slope = "-"+top + "/" + bottom + "x "; //transfers the bottom negative sign to the top
+            if (top < 0){
+                top = Math.abs(top);
+                slope = top + "/" + bottom + "x "; //if top and bottom are negative then both become positive
+            }
+        }
+
+        //giving y intercept a sign when there is a slope
+        if (yIntercept() > 0 && (double)top/bottom != 0){
+            yIntercept = "+ " + yIntercept; //positive y intercept
+        }
+        else if (yIntercept() < 0 && (double)top/bottom != 0){
+            yIntercept = yIntercept.substring(0,1) + " "+ yIntercept.substring(1); // negative y intercept
+        }else if (yIntercept() < 0 && top/bottom == 0) {
+            yIntercept = String.valueOf(yIntercept()); //y intercept when no slope
+        }else if(yIntercept() == 0){
+            yIntercept = ""; //no y intercept
+        }
+        return "y = " + slope + yIntercept;
     }
-
-
     /* Returns a String of the coordinate point on the line that has the given x value, with
        both x and y coordinates as decimals to the nearest hundredth, e.g (-5.0, 6.75) */
     public String coordinateForX(double xValue) {
